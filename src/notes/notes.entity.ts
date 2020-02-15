@@ -22,6 +22,9 @@ export class Note {
   @Column({ length: 500 })
   name: string;
 
+  @Column({ nullable: true })
+  variant: number;
+
   @Column('int')
   categoryId: number;
 
