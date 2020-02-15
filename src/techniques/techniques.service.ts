@@ -7,10 +7,14 @@ import { Repository } from 'typeorm';
 export class TechniquesService {
   constructor(
     @InjectRepository(Technique)
-    private readonly repository: Repository<Technique>,
+    private readonly techniqueRepository: Repository<Technique>,
   ) {}
 
+  findAll() {
+    return this.techniqueRepository.find();
+  }
+
   create(body: Technique) {
-    return this.repository.save(body);
+    return this.techniqueRepository.save(body);
   }
 }

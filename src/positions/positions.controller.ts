@@ -1,13 +1,18 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { PositionsService } from './positions.service';
 import { Position } from './positions.entity';
 
 @Controller('positions')
 export class PositionsController {
-  constructor(private readonly service: PositionsService) {}
+  constructor(private readonly positionsService: PositionsService) {}
+
+  @Get()
+  findAll() {
+    return this.positionsService.findAll();
+  }
 
   @Post()
   create(@Body() body: Position) {
-    return this.service.create(body);
+    return this.positionsService.create(body);
   }
 }

@@ -23,6 +23,8 @@ import { TeachersService } from './teachers/teachers.service';
 import { CategoriesService } from './categories/categories.service';
 import { PositionsService } from './positions/positions.service';
 import { TechniquesService } from './techniques/techniques.service';
+import { NoteItemsController } from './note-items/note-items.controller';
+import { NoteItemsService } from './note-items/note-items.service';
 
 @Module({
   imports: [
@@ -46,7 +48,8 @@ import { TechniquesService } from './techniques/techniques.service';
     TechniquesController,
     ClubsController,
     LocationsController,
+    NoteItemsController,
   ],
-  providers: [AppService, NotesService, LocationsService, ClubsService, TeachersService, CategoriesService, PositionsService, TechniquesService],
+  providers: [AppService, NotesService, LocationsService, ClubsService, TeachersService, CategoriesService, PositionsService, TechniquesService, NoteItemsService],
 })
 export class AppModule {}

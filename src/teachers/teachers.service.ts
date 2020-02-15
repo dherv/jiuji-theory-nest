@@ -7,10 +7,14 @@ import { Teacher } from './teachers.entity';
 export class TeachersService {
   constructor(
     @InjectRepository(Teacher)
-    private readonly repository: Repository<Teacher>,
+    private readonly teacherRepository: Repository<Teacher>,
   ) {}
 
+  findAll() {
+    return this.teacherRepository.find();
+  }
+
   create(body: Teacher) {
-    return this.repository.save(body);
+    return this.teacherRepository.save(body);
   }
 }

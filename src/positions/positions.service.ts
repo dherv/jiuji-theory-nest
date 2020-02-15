@@ -7,10 +7,14 @@ import { Repository } from 'typeorm';
 export class PositionsService {
   constructor(
     @InjectRepository(Position)
-    private readonly repository: Repository<Position>,
+    private readonly positionRepository: Repository<Position>,
   ) {}
 
+  findAll() {
+    return this.positionRepository.find();
+  }
+
   create(body: Position) {
-    return this.repository.save(body);
+    return this.positionRepository.save(body);
   }
 }

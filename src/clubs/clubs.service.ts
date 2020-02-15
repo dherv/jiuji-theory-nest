@@ -7,10 +7,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class ClubsService {
   constructor(
     @InjectRepository(Club)
-    private readonly repository: Repository<Club>,
+    private readonly clubRepository: Repository<Club>,
   ) {}
 
+  findAll() {
+    return this.clubRepository.find();
+  }
+
   create(body: Club) {
-    return this.repository.save(body);
+    return this.clubRepository.save(body);
   }
 }
