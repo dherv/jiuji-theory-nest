@@ -11,7 +11,9 @@ export class NotesService {
   ) {}
 
   async findAll(): Promise<Note[]> {
-    return this.repository.find();
+    return this.repository.find({
+      relations: ['noteItems'],
+    });
   }
 
   async create(body: Note) {

@@ -6,11 +6,13 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { Category } from '../categories/categories.entity';
 import { Position } from '../positions/positions.entity';
 import { Teacher } from '../teachers/teachers.entity';
 import { Technique } from '../techniques/techniques.entity';
+import { NoteItem } from '../note-items/note-items.entity';
 
 @Entity()
 export class Note {
@@ -60,4 +62,11 @@ export class Note {
   @ManyToOne(type => Technique)
   @JoinColumn({ name: 'techniqueId' })
   technique: Technique;
+
+  @OneToMany(
+    type => NoteItem,
+    noteItem => noteItem.note,
+    { cascade: ['insert'] },
+  )
+  noteItems: NoteItem[];
 }
