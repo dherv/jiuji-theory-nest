@@ -19,6 +19,9 @@ export class NoteItem {
   text: string;
 
   @Column('int')
+  orderNumber: number;
+
+  @Column('int')
   noteId: number;
 
   @CreateDateColumn({
