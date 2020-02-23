@@ -13,6 +13,7 @@ export class NotesService {
   async findAll(): Promise<Note[]> {
     return this.repository.find({
       relations: ['noteItems'],
+      order: { createdAt: 'DESC' },
     });
   }
 
