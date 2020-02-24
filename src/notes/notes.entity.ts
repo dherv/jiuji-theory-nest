@@ -37,18 +37,24 @@ export class Note {
   @Column('int')
   techniqueId: number;
 
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  date: Date;
+
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  public createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  public updatedAt: Date;
+  updatedAt: Date;
 
   @ManyToOne(type => Category)
   @JoinColumn({ name: 'catergoryId' })
