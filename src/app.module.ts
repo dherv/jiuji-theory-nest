@@ -25,10 +25,13 @@ import { PositionsService } from './positions/positions.service';
 import { TechniquesService } from './techniques/techniques.service';
 import { NoteItemsController } from './note-items/note-items.controller';
 import { NoteItemsService } from './note-items/note-items.service';
+import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
+    ConfigModule.forRoot(),
     TypeOrmModule.forFeature([
       Note,
       Category,
@@ -38,6 +41,7 @@ import { NoteItemsService } from './note-items/note-items.service';
       Club,
       Location,
     ]),
+    AuthModule,
   ],
   controllers: [
     AppController,
@@ -50,6 +54,16 @@ import { NoteItemsService } from './note-items/note-items.service';
     LocationsController,
     NoteItemsController,
   ],
-  providers: [AppService, NotesService, LocationsService, ClubsService, TeachersService, CategoriesService, PositionsService, TechniquesService, NoteItemsService],
+  providers: [
+    AppService,
+    NotesService,
+    LocationsService,
+    ClubsService,
+    TeachersService,
+    CategoriesService,
+    PositionsService,
+    TechniquesService,
+    NoteItemsService,
+  ],
 })
 export class AppModule {}
