@@ -19,6 +19,9 @@ export class Note {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  userId: string;
+
   @Column({ length: 500 })
   name: string;
 
@@ -57,7 +60,7 @@ export class Note {
   updatedAt: Date;
 
   @ManyToOne(type => Category)
-  @JoinColumn({ name: 'catergoryId' })
+  @JoinColumn({ name: 'categoryId' })
   category: Category;
 
   @ManyToOne(type => Position)
