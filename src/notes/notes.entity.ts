@@ -7,12 +7,15 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { Category } from '../categories/categories.entity';
 import { Position } from '../positions/positions.entity';
 import { Teacher } from '../teachers/teachers.entity';
 import { Technique } from '../techniques/techniques.entity';
 import { NoteItem } from '../note-items/note-items.entity';
+import { Video } from '../videos/videos.entity';
 
 @Entity()
 export class Note {
@@ -78,7 +81,11 @@ export class Note {
   @OneToMany(
     type => NoteItem,
     noteItem => noteItem.note,
-    { cascade: ['insert'] },
+    { cascade: ['insert', 'update', 'remove'] },
   )
   noteItems: NoteItem[];
+
+  @ManyToMany(type => Video, { cascade: true })
+  @JoinTable()
+  videos: Video[];
 }

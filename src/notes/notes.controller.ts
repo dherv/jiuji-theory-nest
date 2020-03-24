@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { Note } from './notes.entity';
 
@@ -14,5 +22,15 @@ export class NotesController {
   @Get()
   async findAll(): Promise<Note[]> {
     return this.notesService.findAll();
+  }
+
+  @Put(':id')
+  update(@Param('id') id: number, @Body() body: Note) {
+    return this.notesService.update(id, body);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return `This action removes a #${id} note`;
   }
 }

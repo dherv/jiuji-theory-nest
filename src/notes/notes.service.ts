@@ -19,17 +19,18 @@ export class NotesService {
     const user = this.request.user as RequestUser;
     return this.repository.find({
       where: { userId: user.id },
-      relations: ['noteItems'],
+      relations: ['noteItems', 'videos'],
       order: { date: 'DESC' },
     });
   }
 
   async create(body: Note) {
     const user = this.request.user as RequestUser;
-    const newElement = this.repository.create({
-      ...body,
-      userId: user.id,
-    });
-    return this.repository.save(newElement);
+    return this.repository.save({ ...body, userId: user.id });
+  }
+
+  async update(id: number, body: Note) {
+    const user = this.request.user as RequestUser;
+    return this.repository.save({ ...body, id: Number(id), userId: user.id });
   }
 }
