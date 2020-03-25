@@ -8,7 +8,6 @@ import { RequestUser } from '../auth/user.interface';
 
 @Injectable({ scope: Scope.REQUEST })
 export class NotesService {
-  private readonly user;
   constructor(
     @Inject(REQUEST) private request: Request,
     @InjectRepository(Note)

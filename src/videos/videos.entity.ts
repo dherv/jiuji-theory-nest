@@ -7,7 +7,6 @@ import {
   ManyToOne,
   JoinColumn,
   ManyToMany,
-  JoinTable,
 } from 'typeorm';
 import { Category } from '../categories/categories.entity';
 import { Position } from '../positions/positions.entity';
@@ -17,16 +16,13 @@ import { Note } from '../notes/notes.entity';
 @Entity()
 export class Video {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   title: string;
 
   @Column()
   youtubeId: string;
-
-  @Column({ nullable: true })
-  noteId: number;
 
   @Column({ nullable: true })
   categoryId: number;
@@ -36,12 +32,6 @@ export class Video {
 
   @Column({ nullable: true })
   techniqueId: number;
-
-  @Column({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  date: Date;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -68,7 +58,10 @@ export class Video {
   @JoinColumn({ name: 'techniqueId' })
   technique: Technique;
 
-  @ManyToMany(type => Note, { cascade: true })
-  @JoinTable()
+  @ManyToMany(
+    type => Note,
+    note => note.videos,
+    { cascade: ['insert', 'update'] },
+  )
   notes: Note[];
 }

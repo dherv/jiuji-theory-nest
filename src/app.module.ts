@@ -27,9 +27,7 @@ import { NoteItemsController } from './note-items/note-items.controller';
 import { NoteItemsService } from './note-items/note-items.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { VideosController } from './videos/videos.controller';
-import { VideosService } from './videos/videos.service';
-import { Video } from './videos/videos.entity';
+import { VideosModule } from './videos/videos.module';
 
 @Module({
   imports: [
@@ -43,10 +41,11 @@ import { Video } from './videos/videos.entity';
       Teacher,
       Club,
       Location,
-      Video,
     ]),
     AuthModule,
+    VideosModule,
   ],
+  exports: [VideosModule],
   controllers: [
     AppController,
     NotesController,
@@ -57,7 +56,6 @@ import { Video } from './videos/videos.entity';
     ClubsController,
     LocationsController,
     NoteItemsController,
-    VideosController,
   ],
   providers: [
     AppService,
@@ -69,7 +67,6 @@ import { Video } from './videos/videos.entity';
     PositionsService,
     TechniquesService,
     NoteItemsService,
-    VideosService,
   ],
 })
 export class AppModule {}

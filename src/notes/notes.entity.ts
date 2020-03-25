@@ -85,7 +85,11 @@ export class Note {
   )
   noteItems: NoteItem[];
 
-  @ManyToMany(type => Video, { cascade: true })
+  @ManyToMany(
+    type => Video,
+    video => video.notes,
+    { cascade: ['insert', 'update'] },
+  )
   @JoinTable()
   videos: Video[];
 }
