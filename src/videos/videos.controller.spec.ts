@@ -6,8 +6,9 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { ContextIdFactory } from '@nestjs/core';
 import { VideosUtils } from './videos.utils';
 import { DeleteResult } from 'typeorm';
+import { VideosSearchResultDto } from './dto/videos-search-result.dto';
 
-describe('Videos Controller', () => {
+describe('Videos', () => {
   let videosController: VideosController;
   let videosService: VideosService;
 
@@ -38,13 +39,13 @@ describe('Videos Controller', () => {
     );
   });
 
-  it('should be defined', () => {
-    expect(videosController).toBeDefined();
-  });
+  describe('controller', () => {
+    it('should be defined', () => {
+      expect(videosController).toBeDefined();
+    });
 
-  describe('findAll', () => {
-    const result = [{ ...VideosUtils.sample }];
-    it('should return an array of videos', async () => {
+    it('should find and return an array of videos', async () => {
+      const result = [{ ...VideosUtils.sample }];
       const resultPromise: Promise<Video[]> = Promise.resolve(result);
       jest
         .spyOn(videosService, 'findAll')
@@ -89,6 +90,23 @@ describe('Videos Controller', () => {
         .mockImplementation(() => resultPromise);
       expect(await videosController.remove(1)).toBe(resultRemove);
       expect(videosService.delete).toHaveBeenCalled();
+    });
+
+    it('should search videos', async () => {
+      const resultPromise: Promise<VideosSearchResultDto[]> = Promise.resolve([
+        VideosUtils.searchResultSample,
+        VideosUtils.searchResultSample,
+      ]);
+      jest
+        .spyOn(videosService, 'search')
+        .mockImplementation(() => resultPromise);
+      expect(
+        await videosController.search(VideosUtils.searchBodySample),
+      ).toEqual([
+        VideosUtils.searchResultSample,
+        VideosUtils.searchResultSample,
+      ]);
+      expect(videosService.search).toHaveBeenCalled();
     });
   });
 });

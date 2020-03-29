@@ -3,6 +3,7 @@ export class VideosUtils {
     id: 1,
     youtubeId: '1',
     title: 'title',
+    description: 'description',
     positionId: 1,
     techniqueId: 1,
     categoryId: 1,
@@ -12,6 +13,15 @@ export class VideosUtils {
     category: null,
     technique: null,
     notes: [],
+  };
+  static searchBodySample = {
+    q: 'q',
+    maxResults: 15,
+  };
+  static searchResultSample = {
+    youtubeId: '1',
+    title: 'title',
+    description: 'description',
   };
   static mockRepository = jest.fn(() => ({
     metadata: {

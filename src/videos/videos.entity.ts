@@ -22,6 +22,9 @@ export class Video {
   title: string;
 
   @Column()
+  description: string;
+
+  @Column()
   youtubeId: string;
 
   @Column({ nullable: true })
