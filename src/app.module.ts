@@ -27,7 +27,8 @@ import { NoteItemsController } from './note-items/note-items.controller';
 import { NoteItemsService } from './note-items/note-items.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { VideosModule } from './videos/videos.module';
+// import { VideosModule } from './videos/videos.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -43,9 +44,10 @@ import { VideosModule } from './videos/videos.module';
       Location,
     ]),
     AuthModule,
-    VideosModule,
+    // VideosModule,
+    UsersModule,
   ],
-  exports: [VideosModule],
+  // exports: [VideosModule],
   controllers: [
     AppController,
     NotesController,
@@ -69,4 +71,4 @@ import { VideosModule } from './videos/videos.module';
     NoteItemsService,
   ],
 })
-export class AppModule {}
+export class AppModule { }

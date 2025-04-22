@@ -16,16 +16,16 @@ export class VideosService {
     @Inject(REQUEST) private request: Request,
     @InjectRepository(Video)
     private readonly repository: Repository<Video>,
-  ) {}
+  ) { }
 
-  async findAll(): Promise<Video[]> {
-    const user = this.request.user as RequestUser;
-    return this.repository.find({
-      where: { userId: user.id },
-      relations: ['notes'],
-      order: { updatedAt: 'DESC' },
-    });
-  }
+  // async findAll(): Promise<Video[]> {
+  //   const user = this.request.user as RequestUser;
+  //   return this.repository.find({
+  //     where: { userId: user.id },
+  //     relations: ['notes'],
+  //     order: { updatedAt: 'DESC' },
+  //   });
+  // }
 
   async create(body: IVideo): Promise<Video> {
     const user = this.request.user as RequestUser;
@@ -45,38 +45,38 @@ export class VideosService {
     return this.repository.delete(id);
   }
 
-  async search(body: VideosSearchBodyDto): Promise<VideosSearchResultDto[]> {
-    const { q, maxResults } = body;
-    const youtube = google.youtube({
-      version: 'v3',
-      auth: process.env.GOOGLE_API_YOUTUBE_KEY,
-    });
+  // async search(body: VideosSearchBodyDto): Promise<VideosSearchResultDto[]> {
+  //   const { q, maxResults } = body;
+  //   const youtube = google.youtube({
+  //     version: 'v3',
+  //     auth: process.env.GOOGLE_API_YOUTUBE_KEY,
+  //   });
 
-    const searchCallback = (err: Error, response, resolve, reject) => {
-      if (err) {
-        return reject('Error: ' + err);
-      }
-      const {
-        data: { items },
-      } = response;
+  //   const searchCallback = (err: Error, response, resolve, reject) => {
+  //     if (err) {
+  //       return reject('Error: ' + err);
+  //     }
+  //     const {
+  //       data: { items },
+  //     } = response;
 
-      const youtubeVideos = items.map(video => ({
-        youtubeId: video.id.videoId,
-        title: video.snippet.title,
-        description: video.snippet.description,
-      }));
-      return resolve(youtubeVideos);
-    };
+  //     const youtubeVideos = items.map(video => ({
+  //       youtubeId: video.id.videoId,
+  //       title: video.snippet.title,
+  //       description: video.snippet.description,
+  //     }));
+  //     return resolve(youtubeVideos);
+  //   };
 
-    return new Promise((resolve, reject) => {
-      return youtube.search.list(
-        {
-          q,
-          part: 'snippet',
-          maxResults,
-        },
-        (err, response) => searchCallback(err, response, resolve, reject),
-      );
-    });
-  }
+  //   return new Promise((resolve, reject) => {
+  //     return youtube.search.list(
+  //       {
+  //         q,
+  //         part: 'snippet',
+  //         maxResults,
+  //       },
+  //       (err, response) => searchCallback(err, response, resolve, reject),
+  //     );
+  //   });
+  // }
 }

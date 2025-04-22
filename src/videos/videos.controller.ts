@@ -17,12 +17,12 @@ import { VideosDto } from './dto/videos.dto';
 
 @Controller('videos')
 export class VideosController {
-  constructor(private readonly videosService: VideosService) {}
+  constructor(private readonly videosService: VideosService) { }
 
-  @Get()
-  async findAll(): Promise<VideoEntity[]> {
-    return this.videosService.findAll();
-  }
+  // @Get()
+  // async findAll(): Promise<VideoEntity[]> {
+  //   return this.videosService.findAll();
+  // }
 
   @Post()
   async create(@Body() body: VideosDto): Promise<VideoEntity> {
@@ -42,11 +42,11 @@ export class VideosController {
     return this.videosService.delete(id);
   }
 
-  @Post('/search')
-  @HttpCode(200)
-  async search(
-    @Body() body: VideosSearchBodyDto,
-  ): Promise<VideosSearchResultDto[]> {
-    return this.videosService.search(body);
-  }
+  // @Post('/search')
+  // @HttpCode(200)
+  // async search(
+  //   @Body() body: VideosSearchBodyDto,
+  // ): Promise<VideosSearchResultDto[]> {
+  //   return this.videosService.search(body);
+  // }
 }
